@@ -8,8 +8,8 @@ services:
     ports:
       - 8111:8111
     volumes:
-      - data:/Users/yura/teamcity/data
-      - logs:/Users/yura/teamcity/logs
+      - ./data:/data/teamcity_server/datadir
+      - ./logs:/opt/teamcity/logs
 
   teamcity-agent:
     image: vlrpi/teamcity-agent-arm64v8:ubuntu-xenial-2021.1
@@ -19,7 +19,7 @@ services:
     environment:
       SERVER_URL: http://server:8111
     volumes:
-      - data:/Users/yura/teamcity/agent
+      - ./agent:/teamcity_agent/conf
     
 volumes:
   data:
