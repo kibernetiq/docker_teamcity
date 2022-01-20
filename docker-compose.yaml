@@ -21,9 +21,7 @@ services:
       - teamcity-net
     environment:
       SERVER_URL: http://server:8111
-    volumes:
-      - ./agent:/Teamcity/conf
-
+      
 networks:
   teamcity-net:
     driver: bridge
