@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+  teamcity-server:
+    image: vlrpi/teamcity-server:ubuntu-xenial-2021.1
+    container_name: server
+    networks:
+      - teamcity-net
+    ports:
+      - 8111:8111
+    volumes:
+      - data:/Users/yura/teamcity/data
+      - logs:/Users/yura/teamcity/logs
+
+  teamcity-agent:
+    image: vlrpi/teamcity-agent-arm64v8:ubuntu-xenial-2021.1
+    container_name: agent
+    networks:
+      - teamcity-net
+    environment:
+      SERVER_URL: http://server:8111
+    volumes:
+      - data:/Users/yura/teamcity/agent
+    
+volumes:
+  data:
+    driver: local
+  logs:
+    driver: local
+  agent:
+    driver: local
+
+networks:
+  teamcity-net:
+    driver: bridge
