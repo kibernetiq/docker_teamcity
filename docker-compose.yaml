@@ -7,9 +7,12 @@ services:
       - teamcity-net
     ports:
       - 8111:8111
+    environment:
+      TEAMCITY_DATA_PATH: /TeamCity/data
+      TEAMCITY_LOGS_PATH: /TeamCity/logs
     volumes:
-      - ./data:/data/teamcity_server/datadir
-      - ./logs:/opt/teamcity/logs
+      - ./data:/TeamCity/data
+      - ./logs:/TeamCity/logs
 
   teamcity-agent:
     image: vlrpi/teamcity-agent-arm64v8:ubuntu-xenial-2021.1
@@ -19,15 +22,7 @@ services:
     environment:
       SERVER_URL: http://server:8111
     volumes:
-      - ./agent:/teamcity_agent/conf
-    
-volumes:
-  data:
-    driver: local
-  logs:
-    driver: local
-  agent:
-    driver: local
+      - ./agent:/Teamcity/conf
 
 networks:
   teamcity-net:
